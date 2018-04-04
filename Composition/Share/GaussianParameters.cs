@@ -4,6 +4,6 @@
     {
         public double Mean;
         public double StandardDeviation;
-        public double Area;
+        public double Height;
     }
 }
