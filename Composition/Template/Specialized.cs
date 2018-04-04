@@ -21,14 +21,20 @@
             _brewer3 = brewer3;
         }
 
+        /// <summary>
+        /// Lots of work, details unimportant
+        /// </summary>
         public virtual Beverage Brew()
         {
             var step1Result = _brewer1.Brew("Water", "Base");
             var modified1 = step1Result.Replace("Sand", "Sugar");
+
             var step2Result = _brewer2.Brew(modified1);
             var modified2 = step2Result.Replace("ToxicChemicals", "");
+
             var step3Result = _brewer3.Brew(modified2, "Cream");
             var modified3 = step3Result.Replace("Curds", "Whey");
+
             var beverage = new Beverage(modified3);
             return beverage;
         }

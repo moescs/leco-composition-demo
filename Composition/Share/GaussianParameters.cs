@@ -2,8 +2,8 @@
 {
     public struct GaussianParameters
     {
-        public double Mu;
-        public double Fwhm;
+        public double Mean;
+        public double StandardDeviation;
         public double Area;
     }
 }

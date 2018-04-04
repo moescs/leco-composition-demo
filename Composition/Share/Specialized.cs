@@ -16,7 +16,7 @@
             double y3)
         {
             var gaussian = _common.Fit(y1, y2, y3);
-            return gaussian.Mu + 5;
+            return gaussian.Mean + 5;
         }
 
     }

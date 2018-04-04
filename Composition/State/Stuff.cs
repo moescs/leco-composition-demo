@@ -2,6 +2,11 @@
 {
     public class Stuff
     {
-        public double Value { get; set; }
+        public Stuff(double value)
+        {
+            Value = value;
+        }
+
+        public double Value { get; }
     }
 }

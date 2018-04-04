@@ -8,7 +8,7 @@
     public class SpecializedTests
     {
         [TestMethod]
-        public void VerifyOffsetsMuByFive()
+        public void VerifyOffsetsMeanByFive()
         {
             //Mock dependencies
             var depencency = new Mock<Common>();
@@ -18,7 +18,7 @@
 
             //Set up dependencies
             depencency.Setup(x => x.Fit(1, 3, 5))
-                .Returns(new GaussianParameters {Mu = 7, Fwhm = 11, Area = 13});
+                .Returns(new GaussianParameters {Mean = 7, StandardDeviation = 11, Area = 13});
 
             //Get actual result;
             var actual = sut.GetOffset(1, 3, 5);

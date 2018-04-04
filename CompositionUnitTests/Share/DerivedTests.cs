@@ -7,7 +7,7 @@
     public class DerivedTests
     {
         [TestMethod]
-        public void VerifyOffsetsMuByFive()
+        public void VerifyOffsetsMeanByFive()
         {
             //Thing we're testing
             var sut = new Derived();

@@ -1,7 +1,8 @@
 ﻿namespace Composition.Template
 {
-    using System.Linq;
-
+    /// <summary>
+    /// Helper class - the details of which are irrelevant
+    /// </summary>
     public class Brewer1
     {
         public virtual string Brew(params string[] ingredients)

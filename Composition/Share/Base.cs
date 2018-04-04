@@ -7,10 +7,6 @@
     /// </summary>
     public class Base
     {
-        //FWHM = 2 * sqrt(2 * ln(2)) * sigma = [[[ sqrt(8*ln(2)) ]]] * sigma
-        static readonly double SigmaToFwhmScale = Math.Sqrt(8*Math.Log(2));
-
-        //Area = H * sigma * [[[ sqrt(2*pi) ]]]
         static readonly double SquareRootOfTwoPi = Math.Sqrt(2*Math.PI);
 
         /// <summary>
@@ -39,13 +35,12 @@
             var mu = (r1 + r2) / (2d * (r1 - r2));
             var a = (r1 - r2) / 2d;
             var sigma = 1 / Math.Sqrt(2d * a);
-            var fwhm = SigmaToFwhmScale * sigma;
             var h = y2 * Math.Exp(a * mu * mu);
             var area = h * sigma * SquareRootOfTwoPi;
             return new GaussianParameters
             {
-                Mu = mu,
-                Fwhm = fwhm,
+                Mean = mu,
+                StandardDeviation = sigma,
                 Area = area
             };
         }

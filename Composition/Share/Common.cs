@@ -41,7 +41,7 @@
             var area = h * sigma * SquareRootOfTwoPi;
             return new GaussianParameters
             {
-                Mu = mu,
+                Mean = mu,
                 Fwhm = fwhm,
                 Area = area
             };
