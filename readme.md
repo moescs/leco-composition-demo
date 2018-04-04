@@ -9,7 +9,7 @@ One way inheritance is generally used is to perform something like the [template
   * `AddCondiments()` is not accessible, so `MakeBeverage()` is called.
   * However, to make the beverage, `Brew()` is called, which is very involved.
   * **To write a simple test for `AddCondiments()`, a bunch of work has to be done to make `Brew()` work.**
-  * You may be thinking to simply make `AddCondiments()` public. However, there still **is no way of writing a good, simple test to ensure `MakeBeverage()` works correctly**. A bad test might mock the very class you're testing. However, that's dangerous, because it's easy to mock the class you're testing into accidentlly passing your test event though it should fail.
+  * You may be thinking to simply make `AddCondiments()` public. However, there still **is no way of writing a good, simple test to ensure `MakeBeverage()` works correctly**. A bad test might mock the very class you're testing. However, that's dangerous, because it's easy to mock the class you're testing into accidentlly passing your test even though it should fail.
 ### The Solution
 Change inheritance to composition.
 
@@ -26,9 +26,9 @@ Change inheritance to composition.
 Another common scenario where inheritance is used is to share common code. The common code resides in the base class and is inherited by derived classes in order to consume that functionality. The contrived example given is to fit a gaussian curve in order to add a certain *meaningful (because I say it is)* offset. See the `Composition.Share` and `CompositionUnitTests.Share` namespaces.
 ### Inheritance
 * `Base` implements a 3-point gaussian fit. The idea here is that it's difficult to do this.
-* `Dervied` inherites base to calculate the mean to simply add its *meaningful* offset.
-* `DerviedTests`: The goal is to `VerifyOffsetsMeanByFive`.
-  * **I have to do a lot of work to fabricate a set of numbers to give a specified mean.**
+* `Dervied` inherites `Base` to calculate the mean to simply add its *meaningful* offset.
+* `DerviedTests`: The goal is to `VerifyOffsetsMeanByFive()`.
+  * **I have to do a lot of work to fabricate a set of numbers to give a specified mean** to be used in the subsequent calculation I'm actually trying to test.
   * One should not simply create fake numbers and set a breakpoint to grab the mean to use in that test. That's a dangerous way of accidentally passing the test. For the reason you passed the test may be because the numbers you picked *happened* to work out.
   * **If the base class gets modified, it can break this unrelated test.**
 ### The Solution
