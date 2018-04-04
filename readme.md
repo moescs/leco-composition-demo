@@ -1,5 +1,5 @@
 # Prefer Composition over Inheritance
-This project aims to demonstrate why composition should be prefered to inheritance. I first present two common ways inheritance is used and show the corresponding issues with testability which are resolved by using composition. In the final scenario, I show a common way inheritance causes subtle issues that do not exist with composition.
+This project aims to demonstrate why composition should be prefered to inheritance. I first present two common ways inheritance is used and show the corresponding issues with testability that are resolved by using composition. In the final scenario, I show a common way inheritance causes subtle issues that do not exist with composition.
 ## Template Method
 One way inheritance is generally used is to perform something like the [template method pattern](https://en.wikipedia.org/wiki/Template_method_pattern). Template method is where a base class implements the template method, which consists of a sequence of steps that need to be performed in a certain order. The steps are implemented by derived classes in order to tailor to specific needs. The example given is to make a beverage. In this contrived example, to make a beverage you must first brew then add the condiments. See the `Composition.Template` and `CompositionUnitTests.Template` namespaces.
 ### Inheritance
@@ -9,7 +9,7 @@ One way inheritance is generally used is to perform something like the [template
   * `AddCondiments()` is not accessible, so `MakeBeverage()` is called.
   * However, to make the beverage, `Brew()` is called, which is very involved.
   * **To write a simple test for `AddCondiments()`, a bunch of work has to be done to make `Brew()` work.**
-  * You may be thinking to simply make `AddCondiments()` public. However, there still **is no way of writing a good,simple test to ensure `MakeBeverage()` works correctly**. A bad test might mock the very class you're testing. However, that's a dangerous, because you can wind up accidentally mocking the class you're testing into passing your tests.
+  * You may be thinking to simply make `AddCondiments()` public. However, there still **is no way of writing a good, simple test to ensure `MakeBeverage()` works correctly**. A bad test might mock the very class you're testing. However, that's dangerous, because it's easy to mock the class you're testing into accidentlly passing your test event though it should fail.
 ### The Solution
 Change inheritance to composition.
 
@@ -21,7 +21,7 @@ Change inheritance to composition.
 * `SpecializedTests.VerifyOnlyAddsChocolate()`
   * There is no setup required to make `Brew()` work!
   * If `Brew()` is modified or any of the brewers' APIs change, this test can remain unchanged and still work!
-* `CommonTests`: I can now write simple tests for `MakeBeverage()`, like `VerifyAddsCondimentsToWhatsBrewed()` because everything in `Specialized()` is mocked to return simple values!
+* `CommonTests`: I can now write simple tests for `Common.MakeBeverage()`, like `VerifyAddsCondimentsToWhatsBrewed()` because everything in `Specialized` is mocked to return simple values!
 ## Shared Code
 Another common scenario where inheritance is used is to share common code. The common code resides in the base class and is inherited by derived classes in order to consume that functionality. The contrived example given is to fit a gaussian curve in order to add a certain *meaningful (because I say it is)* offset. See the `Composition.Share` and `CompositionUnitTests.Share` namespaces.
 ### Inheritance
@@ -68,7 +68,7 @@ I demonstrated that using composition instead of inheritance increases testabili
 
 However, it should be noted that you can't *always* use composition. The one place I've found where you need inheritance is in the UI. This is specifically due to the following combination of requirements:
 * Empty constructors are needed.
-* The responsibility of the view is to create its own components (instead of being injected with them)
+* The responsibility of the view is to create its own components (instead of being injected with them).
 * Lots of common functionality is required in each component.
 
 So the only way to get this functionality is to inherit it. It's not that testable (not by unit tests, coded UI tests are more like integration tests). However, the UI should be limited to only the UI by using an MV* design pattern like [MVVM](https://msdn.microsoft.com/en-us/library/hh848246.aspx). You can also create objects that you are composed with to help you do your job or even implement common functionality and those classes might be testable.
