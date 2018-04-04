@@ -63,12 +63,12 @@ Change inheritance to composition.
 * `Specialized` is composed with `Common` to use it to implement `DoCommonThings`
 ### Composition
 It is now impossible for `UserOfCommon` to get handed a `Specialized`, where `DoSpecializedThings()` does not properly mutate `Common.Stuff` in a statically-typed language. In effect, using composition prevented this bug.
-## Concusion
-I demonstrated that using composition instead of inheritance increases both testability and decreases bugs thereby increasing maintainability. You will find that composition is also more versatile as now injected implementations can be swapped out for other ones. 
+## Conclusion
+I demonstrated that using composition instead of inheritance increases testability and decreases bugs thereby increasing maintainability. You will find that composition is also more versatile as now injected implementations can be swapped out for other ones. 
 
-However, it should be noted that you can't *always* use composition. The one place I've found where you need inheritance is in the UI. This should be limited by using an MV* design pattern like [MVVM](https://msdn.microsoft.com/en-us/library/hh848246.aspx). This is specifically due to the following combination of requirements:
+However, it should be noted that you can't *always* use composition. The one place I've found where you need inheritance is in the UI. This is specifically due to the following combination of requirements:
 * Empty constructors are needed.
 * The responsibility of the view is to create its own components (instead of being injected with them)
 * Lots of common functionality is required in each component.
 
-So the only way to get this functionality is to inherit it. It's not that testable (not by unit tests, coded UI tests are more like integration tests). However, you can still create components that you are composed with to help you do your job and those components might be testable.
+So the only way to get this functionality is to inherit it. It's not that testable (not by unit tests, coded UI tests are more like integration tests). However, the UI should be limited to only the UI by using an MV* design pattern like [MVVM](https://msdn.microsoft.com/en-us/library/hh848246.aspx). You can also create objects that you are composed with to help you do your job or even implement common functionality and those classes might be testable.
