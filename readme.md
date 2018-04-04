@@ -43,14 +43,14 @@ Change inheritance to composition.
 * `Common` can be easily mocked to return simple results!
 * Modifications to the `Fit()` alorithm will not impact this test!
 ## State
-The final scenario is when a derived class inherits from a base class in order to fulfil some interface. It wants to leave one method in the interface implemented with common functionality from the base class. But it wants to replace the other method with specialized functionality. The example given modifies state in the specialized method from the base class. See the `Composition.Shared` and `CompositionUnitTests.Shared` namespaces.
+The final scenario (based on this [answer](https://softwareengineering.stackexchange.com/questions/134097/why-should-i-prefer-composition-over-inheritance#answer-134115) on Stack Overflow) is when a derived class inherits from a base class in order to fulfil some interface. It wants to leave one method in the interface implemented with common functionality from the base class. But it wants to replace the other method with specialized functionality. The example given modifies state in the specialized method from the base class. See the `Composition.Shared` and `CompositionUnitTests.Shared` namespaces.
 ### Inheritance
-`Base` implements the interface
-* It manipulates public state (`Stuff`) in `DoSpecializedThings()`, but not in `DoCommonThings()`
+* `Base` implements the interface
+  * It manipulates public state (`Stuff`) in `DoSpecializedThings()`, but not in `DoCommonThings()`
 * `UserOfBase` calls `DoSpecializedThings()` and then uses `Stuff`
 * `Derived` inherits from `Base` to fulfil the interface, but overrides `DoSpecializedThings()` with its own implementation.
-    * `UserOfBase` is now broken because `Stuff` is not correct after invoking `DoSpecializedThings()`.
-    * This may be and easier issue to catch at first, but what happens if `Base` started out not modifying `Stuff` and then is changed to modify `Stuff` without knowledge that `Derived` needs to be changed.
+    * **`UserOfBase` is now broken because `Stuff` is not correct after invoking `DoSpecializedThings()`.**
+    * This may be and easier issue to catch at first, but what happens if `Base` started out not modifying `Stuff` and then is changed to modify `Stuff` without knowledge that `Derived` needs to be changed. But `Derived` should never have to care about `Base.Stuff` to begin with.
     * It may also not be possible to modify `Stuff` from `Derived` as in this scenario because the setter is private and Stuff is immutable.
 ### The Solution
 Change inheritance to composition.
@@ -60,7 +60,7 @@ Change inheritance to composition.
 * `Derived` becomes `Specialized`
 * `UserOfBase` becomes `UserOfCommon`
 * BOTH `Specialized` and `Common` implement the interface
-* `Specialized` is composed with `Common` to use it to implement `DoCommonThings`
+* `Specialized` is composed with `Common` to use it to implement `DoCommonThings()`
 ### Composition
 It is now impossible for `UserOfCommon` to get handed a `Specialized`, where `DoSpecializedThings()` does not properly mutate `Common.Stuff` in a statically-typed language. In effect, using composition prevented this bug.
 ## Conclusion
