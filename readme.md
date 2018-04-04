@@ -50,7 +50,7 @@ The final scenario (based on this [answer](https://softwareengineering.stackexch
 * `UserOfBase` calls `DoSpecializedThings()` and then uses `Stuff`
 * `Derived` inherits from `Base` to fulfil the interface, but overrides `DoSpecializedThings()` with its own implementation.
     * **`UserOfBase` is now broken because `Stuff` is not correct after invoking `DoSpecializedThings()`.**
-    * This may be and easier issue to catch at first, but what happens if `Base` started out not modifying `Stuff` and then is changed to modify `Stuff` without knowledge that `Derived` needs to be changed. But `Derived` should never have to care about `Base.Stuff` to begin with.
+    * This may be an easier issue to catch at first, but what happens if `Base` started out not modifying `Stuff` and then is changed to modify `Stuff` without knowledge that `Derived` needs to be changed. Also, `Derived` should never have to care about `Base.Stuff` to begin with.
     * It may also not be possible to modify `Stuff` from `Derived` as in this scenario because the setter is private and Stuff is immutable.
 ### The Solution
 Change inheritance to composition.
