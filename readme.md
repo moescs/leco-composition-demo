@@ -54,6 +54,7 @@ The final scenario is when a derived class inherits from a base class in order t
     * It may also not be possible to modify `Stuff` from `Derived` as in this scenario because the setter is private and Stuff is immutable.
 ### The Solution
 Change inheritance to composition.
+
 ![State Class Diagrams](./State_Class_Diagram.svg "State Class Diagrams")
 * `Base` becomes `Common`
 * `Derived` becomes `Specialized`
